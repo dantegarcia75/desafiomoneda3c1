@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
 public class ClasePrincipal {
@@ -103,16 +104,20 @@ public class ClasePrincipal {
         }
 
         private static void convertirMoneda(String baseCode, String targetCode, Scanner teclado) {
-            double amount = teclado.nextDouble();
-            ClaseConversion conversion = new ClaseConversion(baseCode, targetCode, amount);
+
             try {
+                double amount = teclado.nextDouble();
+                ClaseConversion conversion = new ClaseConversion(baseCode, targetCode, amount);
                 double result = conversion.convert();
                 System.out.println(amount + " " + baseCode + " equivale a " + result + " " + targetCode);
-                System.out.println("Vuelve a realizar una conversión o elige la opción de SALIR");
+                System.out.println("____________________________________________________________________");
+                System.out.println("GRACIAS! Vuelve a realizar una conversión o elige la opción de SALIR");
 
             } catch (IOException | InterruptedException e) {
                 System.out.println("Ocurrió un error: ");
                 System.out.println(e.getMessage());
+            } catch (InputMismatchException e){
+                System.out.println("Error al ingresar un número decimal, cambie punto por coma o viceversa");
             }
         }
 }
